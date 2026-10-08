@@ -1,0 +1,18 @@
+[Unit]
+Description=Spring Boot Application Service
+After=syslog.target network.target mysql.service
+
+[Service]
+User=spring-runner
+WorkingDirectory=/opt/spring-app
+ExecStart=/usr/bin/java -jar /opt/spring-app/app.jar
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10
+Environment="SERVER_PORT=8082"
+Environment="SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/springboot_db?useSSL=false"
+Environment="SPRING_DATASOURCE_USERNAME=spring-admin"
+Environment="SPRING_DATASOURCE_PASSWORD=SpringSecure@123"
+
+[Install]
+WantedBy=multi-user.target
